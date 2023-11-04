@@ -23,6 +23,14 @@ export default function TaskCard({
     setTasks(currentTasks);
   };
 
+  const deleteTask = (index: number) => {
+    const tasksWithoutTheTaskDeleted = [...tasks].filter(
+      (_, idx) => idx !== index
+    );
+
+    setTasks(tasksWithoutTheTaskDeleted);
+  };
+
   return (
     <div
       className={`${
@@ -44,7 +52,10 @@ export default function TaskCard({
       >
         {taskName}
       </span>
-      <button className="outline-none self-start py-[5px] px-1.5 text-gray-300 hover:text-danger hover:bg-gray-400 hover:rounded transition-all">
+      <button
+        className="outline-none self-start py-[5px] px-1.5 text-gray-300 hover:text-danger hover:bg-gray-400 hover:rounded transition-all"
+        onClick={() => deleteTask(index)}
+      >
         <TrashIcon width={18} />
       </button>
     </div>
