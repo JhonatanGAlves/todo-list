@@ -1,11 +1,24 @@
-import SearchBox from "./searchbox/SearchBox";
+import { useState } from "react";
+import TaskInput from "./task-input/TaskInput";
 import Tasks from "./tasks/Tasks";
+import { TaskTypes } from "../../types/types";
 
 export default function Main() {
+  const [tasks, setTasks] = useState<TaskTypes[]>([]);
+
+  const createTask = (newTaskName: string) => {
+    const newTask = {
+      taskName: newTaskName,
+      completed: false,
+    };
+
+    setTasks([...tasks, newTask]);
+  };
+
   return (
-    <main className="flex justify-center">
+    <main className="flex justify-center -mt-7">
       <div className="flex flex-col items-center px-6 w-full min-[640px]:w-[39.875rem]">
-        <SearchBox />
+        <TaskInput createTask={createTask} />
 
         <div className="flex justify-between pt-16 w-full">
           <div className="flex items-center gap-2">
@@ -23,7 +36,7 @@ export default function Main() {
           </div>
         </div>
 
-        <Tasks />
+        <Tasks tasks={tasks} />
       </div>
     </main>
   );

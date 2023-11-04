@@ -1,13 +1,17 @@
 import { ClipboardDocumentListIcon } from "@heroicons/react/24/outline";
 import TaskCard from "./task-card/TaskCard";
-import { useState } from "react";
+import { TaskTypes } from "../../../types/types";
 
-export default function Tasks() {
-  const [tasks, setTasks] = useState([]);
+interface TasksProps {
+  tasks: TaskTypes[];
+}
 
+export default function Tasks({ tasks }: TasksProps) {
   return tasks.length > 0 ? (
-    <div className="w-full mt-6">
-      <TaskCard />
+    <div className="w-full mt-6 flex flex-col gap-3">
+      {tasks.map((task, index) => (
+        <TaskCard key={index} taskName={task.taskName} />
+      ))}
     </div>
   ) : (
     <div className="w-full mt-6 py-16 border-t border-solid border-gray-400 rounded-lg">
