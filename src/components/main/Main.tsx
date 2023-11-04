@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import TaskInput from "./task-input/TaskInput";
 import Tasks from "./tasks/Tasks";
 import { TaskTypes } from "../../types/types";
@@ -24,19 +25,23 @@ export default function Main() {
           <div className="flex items-center gap-2">
             <label className="text-blue font-bold text-sm">Created tasks</label>
             <span className="py-0.5 px-2 bg-gray-400 text-gray-200 font-bold text-xs rounded-full">
-              0
+              {tasks.length}
             </span>
           </div>
 
           <div className="flex items-center gap-2">
             <label className="text-purple font-bold text-sm">Completed</label>
             <span className="py-0.5 px-2 bg-gray-400 text-gray-200 font-bold text-xs rounded-full">
-              0
+              {tasks.length > 0
+                ? `${tasks.filter((task) => task.completed).length} of ${
+                    tasks.length
+                  }`
+                : 0}
             </span>
           </div>
         </div>
 
-        <Tasks tasks={tasks} />
+        <Tasks tasks={tasks} setTasks={setTasks} />
       </div>
     </main>
   );

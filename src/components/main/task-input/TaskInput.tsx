@@ -1,5 +1,6 @@
-import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
+
+import { PlusCircleIcon } from "@heroicons/react/24/outline";
 
 interface TaskInputProps {
   createTask: (newTaskName: string) => void;

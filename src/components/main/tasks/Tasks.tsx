@@ -4,13 +4,21 @@ import { TaskTypes } from "../../../types/types";
 
 interface TasksProps {
   tasks: TaskTypes[];
+  setTasks: (task: TaskTypes[]) => void;
 }
 
-export default function Tasks({ tasks }: TasksProps) {
+export default function Tasks({ tasks, setTasks }: TasksProps) {
   return tasks.length > 0 ? (
     <div className="w-full mt-6 flex flex-col gap-3">
       {tasks.map((task, index) => (
-        <TaskCard key={index} taskName={task.taskName} />
+        <TaskCard
+          key={index}
+          index={index}
+          taskName={task.taskName}
+          isChecked={task.completed}
+          tasks={tasks}
+          setTasks={setTasks}
+        />
       ))}
     </div>
   ) : (
