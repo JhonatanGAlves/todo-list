@@ -21,6 +21,7 @@ export default function TaskCard({
     currentTasks[index].completed = !currentTasks[index].completed;
 
     setTasks(currentTasks);
+    localStorage.setItem("tasks", JSON.stringify([...currentTasks]));
   };
 
   const deleteTask = (index: number) => {
@@ -29,6 +30,10 @@ export default function TaskCard({
     );
 
     setTasks(tasksWithoutTheTaskDeleted);
+    localStorage.setItem(
+      "tasks",
+      JSON.stringify([...tasksWithoutTheTaskDeleted])
+    );
   };
 
   return (

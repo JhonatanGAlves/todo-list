@@ -20,11 +20,12 @@ export default function TaskInput({ createTask }: TaskInputProps) {
         placeholder="Add a new task"
       />
       <button
-        className="text-gray-100 flex justify-center items-center gap-2 p-4 bg-blue-dark hover:bg-blue transition-all rounded-lg"
+        className="disabled:bg-[#144867] disabled:text-gray-200 disabled:cursor-not-allowed text-gray-100 flex justify-center items-center gap-2 p-4 bg-blue-dark hover:bg-blue transition-all rounded-lg"
         onClick={() => {
           createTask(newTaskInput);
           setNewTaskInput("");
         }}
+        disabled={newTaskInput.length < 3}
       >
         <span className="font-bold text-sm">Create</span>
         <PlusCircleIcon width={16} strokeWidth={2.5} />

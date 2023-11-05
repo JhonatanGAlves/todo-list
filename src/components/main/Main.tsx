@@ -5,7 +5,11 @@ import Tasks from "./tasks/Tasks";
 import { TaskTypes } from "../../types/types";
 
 export default function Main() {
-  const [tasks, setTasks] = useState<TaskTypes[]>([]);
+  const getTasksFromStorage =
+    JSON.parse(localStorage.getItem("tasks") || "[]").length > 0
+      ? JSON.parse(localStorage.getItem("tasks") || "[]")
+      : null;
+  const [tasks, setTasks] = useState<TaskTypes[]>(getTasksFromStorage ?? []);
 
   const createTask = (newTaskName: string) => {
     const newTask = {
@@ -14,6 +18,7 @@ export default function Main() {
     };
 
     setTasks([...tasks, newTask]);
+    localStorage.setItem("tasks", JSON.stringify([...tasks, newTask]));
   };
 
   return (
