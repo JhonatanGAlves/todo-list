@@ -5,9 +5,18 @@ import { TaskTypes } from "../../../types/types";
 interface TasksProps {
   tasks: TaskTypes[];
   setTasks: (task: TaskTypes[]) => void;
+  setShowUpdatedTaskNotificationAlert: (show: boolean) => void;
+  setShowCompletedTaskNotificationAlert: (show: boolean) => void;
+  setShowDeletedTaskNotificationAlert: (show: boolean) => void;
 }
 
-export default function Tasks({ tasks, setTasks }: TasksProps) {
+export default function Tasks({
+  tasks,
+  setTasks,
+  setShowUpdatedTaskNotificationAlert,
+  setShowCompletedTaskNotificationAlert,
+  setShowDeletedTaskNotificationAlert,
+}: TasksProps) {
   return tasks.length > 0 ? (
     <div className="w-full mt-6 flex flex-col gap-3">
       {tasks.map((task, index) => (
@@ -18,6 +27,15 @@ export default function Tasks({ tasks, setTasks }: TasksProps) {
           isChecked={task.completed}
           tasks={tasks}
           setTasks={setTasks}
+          setShowUpdatedTaskNotificationAlert={
+            setShowUpdatedTaskNotificationAlert
+          }
+          setShowCompletedTaskNotificationAlert={
+            setShowCompletedTaskNotificationAlert
+          }
+          setShowDeletedTaskNotificationAlert={
+            setShowDeletedTaskNotificationAlert
+          }
         />
       ))}
     </div>

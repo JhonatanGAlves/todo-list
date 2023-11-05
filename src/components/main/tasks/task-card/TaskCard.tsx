@@ -14,6 +14,9 @@ interface TaskCardProps {
   isChecked: boolean;
   tasks: TaskTypes[];
   setTasks: (tasks: TaskTypes[]) => void;
+  setShowUpdatedTaskNotificationAlert: (show: boolean) => void;
+  setShowCompletedTaskNotificationAlert: (show: boolean) => void;
+  setShowDeletedTaskNotificationAlert: (show: boolean) => void;
 }
 
 export default function TaskCard({
@@ -22,6 +25,9 @@ export default function TaskCard({
   isChecked,
   tasks,
   setTasks,
+  setShowUpdatedTaskNotificationAlert,
+  setShowCompletedTaskNotificationAlert,
+  setShowDeletedTaskNotificationAlert,
 }: TaskCardProps) {
   const [editingTask, setEditingTask] = useState(false);
   const [newTaskName, setNewTaskName] = useState(taskName);
@@ -32,8 +38,12 @@ export default function TaskCard({
     if (newName) {
       currentTasks[index].taskName = newName;
       setEditingTask(false);
+      setShowUpdatedTaskNotificationAlert(true);
     } else {
       currentTasks[index].completed = !currentTasks[index].completed;
+
+      currentTasks[index].completed &&
+        setShowCompletedTaskNotificationAlert(true);
     }
 
     setTasks(currentTasks);
@@ -50,6 +60,7 @@ export default function TaskCard({
       "tasks",
       JSON.stringify([...tasksWithoutTheTaskDeleted])
     );
+    setShowDeletedTaskNotificationAlert(true);
   };
 
   return (

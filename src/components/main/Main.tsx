@@ -3,6 +3,7 @@ import { useState } from "react";
 import TaskInput from "./task-input/TaskInput";
 import Tasks from "./tasks/Tasks";
 import { TaskTypes } from "../../types/types";
+import GlobalNotification from "../global-notification/GlobalNotification";
 
 export default function Main() {
   const getTasksFromStorage =
@@ -10,6 +11,24 @@ export default function Main() {
       ? JSON.parse(localStorage.getItem("tasks") || "[]")
       : null;
   const [tasks, setTasks] = useState<TaskTypes[]>(getTasksFromStorage ?? []);
+
+  // Notification Alerts
+  const [
+    showCreatedTaskNotificationAlert,
+    setShowCreatedTaskNotificationAlert,
+  ] = useState<boolean>(false);
+  const [
+    showUpdatedTaskNotificationAlert,
+    setShowUpdatedTaskNotificationAlert,
+  ] = useState<boolean>(false);
+  const [
+    showCompletedTaskNotificationAlert,
+    setShowCompletedTaskNotificationAlert,
+  ] = useState<boolean>(false);
+  const [
+    showDeletedTaskNotificationAlert,
+    setShowDeletedTaskNotificationAlert,
+  ] = useState<boolean>(false);
 
   const createTask = (newTaskName: string) => {
     const newTask = {
@@ -19,6 +38,7 @@ export default function Main() {
 
     setTasks([...tasks, newTask]);
     localStorage.setItem("tasks", JSON.stringify([...tasks, newTask]));
+    setShowCreatedTaskNotificationAlert(true);
   };
 
   return (
@@ -46,8 +66,45 @@ export default function Main() {
           </div>
         </div>
 
-        <Tasks tasks={tasks} setTasks={setTasks} />
+        <Tasks
+          tasks={tasks}
+          setTasks={setTasks}
+          setShowUpdatedTaskNotificationAlert={
+            setShowUpdatedTaskNotificationAlert
+          }
+          setShowCompletedTaskNotificationAlert={
+            setShowCompletedTaskNotificationAlert
+          }
+          setShowDeletedTaskNotificationAlert={
+            setShowDeletedTaskNotificationAlert
+          }
+        />
       </div>
+
+      <GlobalNotification
+        show={showCreatedTaskNotificationAlert}
+        message="The task has been created successfully"
+        description="Let's go! Focus on your goals."
+        onClose={setShowCreatedTaskNotificationAlert}
+      />
+      <GlobalNotification
+        show={showUpdatedTaskNotificationAlert}
+        message="The task has been updated successfully"
+        description="Now your task has a new name."
+        onClose={setShowUpdatedTaskNotificationAlert}
+      />
+      <GlobalNotification
+        show={showCompletedTaskNotificationAlert}
+        message="The task has been completed successfully"
+        description="Congratulations on completing this task."
+        onClose={setShowCompletedTaskNotificationAlert}
+      />
+      <GlobalNotification
+        show={showDeletedTaskNotificationAlert}
+        message="The task has been deleted successfully"
+        description="Remember, you are capable of anything!"
+        onClose={setShowDeletedTaskNotificationAlert}
+      />
     </main>
   );
 }
