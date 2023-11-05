@@ -22,8 +22,8 @@ export default function Main() {
   };
 
   return (
-    <main className="flex justify-center -mt-7">
-      <div className="flex flex-col items-center px-6 w-full min-[640px]:w-[39.875rem]">
+    <main className="flex justify-center pb-16 bg-gray-600">
+      <div className="flex flex-col items-center -mt-7 px-6 w-full min-[640px]:w-[39.875rem]">
         <TaskInput createTask={createTask} />
 
         <div className="flex justify-between pt-16 w-full">
