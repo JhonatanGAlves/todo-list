@@ -29,6 +29,10 @@ export default function Main() {
     showDeletedTaskNotificationAlert,
     setShowDeletedTaskNotificationAlert,
   ] = useState<boolean>(false);
+  const [showError, setShowError] = useState<{
+    message: string;
+    error: boolean;
+  }>({ message: "", error: false });
 
   const createTask = (newTaskName: string) => {
     const newTask = {
@@ -44,7 +48,11 @@ export default function Main() {
   return (
     <main className="flex justify-center pb-16 bg-gray-600">
       <div className="flex flex-col items-center -mt-7 px-6 w-full min-[640px]:w-[39.875rem]">
-        <TaskInput createTask={createTask} />
+        <TaskInput
+          createTask={createTask}
+          tasks={tasks}
+          setShowError={setShowError}
+        />
 
         <div className="flex justify-between pt-16 w-full">
           <div className="flex items-center gap-2">
@@ -78,6 +86,7 @@ export default function Main() {
           setShowDeletedTaskNotificationAlert={
             setShowDeletedTaskNotificationAlert
           }
+          setShowError={setShowError}
         />
       </div>
 
@@ -104,6 +113,13 @@ export default function Main() {
         message="The task has been deleted successfully"
         description="Remember, you are capable of anything!"
         onClose={setShowDeletedTaskNotificationAlert}
+      />
+      <GlobalNotification
+        show={showError.error}
+        message={showError.message}
+        description="Please understand the message above and try again."
+        type="error"
+        onClose={(close) => setShowError({ message: "", error: close })}
       />
     </main>
   );

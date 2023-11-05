@@ -6,7 +6,9 @@ import {
   PencilSquareIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
-import { TaskTypes } from "../../../../types/types";
+
+import { MessageErrorTypes, TaskTypes } from "../../../../types/types";
+import { validateTaskName } from "../../../../utils/utils";
 
 interface TaskCardProps {
   taskName: string;
@@ -17,6 +19,7 @@ interface TaskCardProps {
   setShowUpdatedTaskNotificationAlert: (show: boolean) => void;
   setShowCompletedTaskNotificationAlert: (show: boolean) => void;
   setShowDeletedTaskNotificationAlert: (show: boolean) => void;
+  setShowError: (showError: MessageErrorTypes) => void;
 }
 
 export default function TaskCard({
@@ -28,6 +31,7 @@ export default function TaskCard({
   setShowUpdatedTaskNotificationAlert,
   setShowCompletedTaskNotificationAlert,
   setShowDeletedTaskNotificationAlert,
+  setShowError,
 }: TaskCardProps) {
   const [editingTask, setEditingTask] = useState(false);
   const [newTaskName, setNewTaskName] = useState(taskName);
@@ -36,6 +40,18 @@ export default function TaskCard({
     const currentTasks = [...tasks];
 
     if (newName) {
+      const isThereAlreadyATaskWithTheSameName = validateTaskName(
+        newName,
+        tasks
+      );
+
+      if (isThereAlreadyATaskWithTheSameName) {
+        return setShowError({
+          message: "A task with the same name already exists!",
+          error: true,
+        });
+      }
+
       currentTasks[index].taskName = newName;
       setEditingTask(false);
       setShowUpdatedTaskNotificationAlert(true);

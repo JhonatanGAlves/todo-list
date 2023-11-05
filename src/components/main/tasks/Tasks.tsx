@@ -1,6 +1,7 @@
 import { ClipboardDocumentListIcon } from "@heroicons/react/24/outline";
+
 import TaskCard from "./task-card/TaskCard";
-import { TaskTypes } from "../../../types/types";
+import { MessageErrorTypes, TaskTypes } from "../../../types/types";
 
 interface TasksProps {
   tasks: TaskTypes[];
@@ -8,6 +9,7 @@ interface TasksProps {
   setShowUpdatedTaskNotificationAlert: (show: boolean) => void;
   setShowCompletedTaskNotificationAlert: (show: boolean) => void;
   setShowDeletedTaskNotificationAlert: (show: boolean) => void;
+  setShowError: (showError: MessageErrorTypes) => void;
 }
 
 export default function Tasks({
@@ -16,6 +18,7 @@ export default function Tasks({
   setShowUpdatedTaskNotificationAlert,
   setShowCompletedTaskNotificationAlert,
   setShowDeletedTaskNotificationAlert,
+  setShowError,
 }: TasksProps) {
   return tasks.length > 0 ? (
     <div className="w-full mt-6 flex flex-col gap-3">
@@ -36,6 +39,7 @@ export default function Tasks({
           setShowDeletedTaskNotificationAlert={
             setShowDeletedTaskNotificationAlert
           }
+          setShowError={setShowError}
         />
       ))}
     </div>

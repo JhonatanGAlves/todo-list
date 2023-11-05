@@ -2,11 +2,20 @@ import { useState } from "react";
 
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 
+import { MessageErrorTypes, TaskTypes } from "../../../types/types";
+import { validateTaskName } from "../../../utils/utils";
+
 interface TaskInputProps {
   createTask: (newTaskName: string) => void;
+  tasks: TaskTypes[];
+  setShowError: (showError: MessageErrorTypes) => void;
 }
 
-export default function TaskInput({ createTask }: TaskInputProps) {
+export default function TaskInput({
+  createTask,
+  tasks,
+  setShowError,
+}: TaskInputProps) {
   const [newTaskInput, setNewTaskInput] = useState<string>("");
 
   return (
@@ -22,6 +31,18 @@ export default function TaskInput({ createTask }: TaskInputProps) {
       <button
         className="disabled:bg-[#144867] disabled:text-gray-200 disabled:cursor-not-allowed text-gray-100 flex justify-center items-center gap-2 p-4 bg-blue-dark hover:bg-blue transition-all rounded-lg"
         onClick={() => {
+          const isThereAlreadyATaskWithTheSameName = validateTaskName(
+            newTaskInput,
+            tasks
+          );
+
+          if (isThereAlreadyATaskWithTheSameName) {
+            return setShowError({
+              message: "A task with the same name already exists!",
+              error: true,
+            });
+          }
+
           createTask(newTaskInput);
           setNewTaskInput("");
         }}
