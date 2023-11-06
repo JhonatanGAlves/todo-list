@@ -127,7 +127,7 @@ export default function TaskCard({
       <button
         className={`${
           editingTask &&
-          newTaskName === taskName &&
+          (newTaskName.length < 3 || newTaskName === taskName) &&
           "text-gray-300/60 hover:text-gray-300/60 hover:bg-opacity-0 cursor-not-allowed"
         } outline-none self-start py-[5px] px-1.5 text-gray-300 hover:text-blue hover:bg-gray-400 hover:rounded transition-all`}
         onClick={() => {
