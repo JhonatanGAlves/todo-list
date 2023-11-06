@@ -39,7 +39,7 @@ export default function GlobalNotification({
           : type === "warning"
           ? "bg-[#FFCC00]"
           : "bg-[#CC3300]"
-      } w-[35%] text-gray-100 rounded-md px-4 py-3 absolute top-[5%] left-[50%] -translate-x-2/4`}
+      } w-[85%] min-[420px]:w-[35%] text-gray-100 rounded-md px-4 py-3 absolute top-[5%] left-[50%] -translate-x-2/4`}
     >
       {type === "success" ? (
         <CheckCircleIcon className="self-start mt-1" width={20} />
