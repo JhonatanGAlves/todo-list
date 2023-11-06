@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import TaskInput from "./task-input/TaskInput";
 import Tasks from "./tasks/Tasks";
-import { TaskTypes } from "../../types/types";
+import { MessageAlertTypes, TaskTypes } from "../../types/types";
 import GlobalNotification from "../global-notification/GlobalNotification";
 
 export default function Main() {
@@ -11,38 +11,37 @@ export default function Main() {
       ? JSON.parse(localStorage.getItem("tasks") || "[]")
       : null;
   const [tasks, setTasks] = useState<TaskTypes[]>(getTasksFromStorage ?? []);
-
-  // Notification Alerts
-  const [
-    showCreatedTaskNotificationAlert,
-    setShowCreatedTaskNotificationAlert,
-  ] = useState<boolean>(false);
-  const [
-    showUpdatedTaskNotificationAlert,
-    setShowUpdatedTaskNotificationAlert,
-  ] = useState<boolean>(false);
-  const [
-    showCompletedTaskNotificationAlert,
-    setShowCompletedTaskNotificationAlert,
-  ] = useState<boolean>(false);
-  const [
-    showDeletedTaskNotificationAlert,
-    setShowDeletedTaskNotificationAlert,
-  ] = useState<boolean>(false);
-  const [showError, setShowError] = useState<{
-    message: string;
-    error: boolean;
-  }>({ message: "", error: false });
+  const [showSuccessNotificationAlert, setShowSuccessNotificationAlert] =
+    useState<MessageAlertTypes>({
+      message: "",
+      showAlert: false,
+      description: "",
+    });
+  const [showErrorNotificationAlert, setShowErrorNotificationAlert] =
+    useState<MessageAlertTypes>({
+      message: "",
+      showAlert: false,
+      description: "",
+    });
+  const [loading, setLoading] = useState(false);
 
   const createTask = (newTaskName: string) => {
     const newTask = {
       taskName: newTaskName,
       completed: false,
+      createdAt: new Date(),
     };
 
-    setTasks([...tasks, newTask]);
-    localStorage.setItem("tasks", JSON.stringify([...tasks, newTask]));
-    setShowCreatedTaskNotificationAlert(true);
+    setTimeout(() => {
+      setTasks([...tasks, newTask]);
+      localStorage.setItem("tasks", JSON.stringify([...tasks, newTask]));
+      setShowSuccessNotificationAlert({
+        message: "The task has been created successfully",
+        description: "Let's go! Focus on your goals.",
+        showAlert: true,
+      });
+      setLoading(false);
+    }, 1000);
   };
 
   return (
@@ -51,7 +50,9 @@ export default function Main() {
         <TaskInput
           createTask={createTask}
           tasks={tasks}
-          setShowError={setShowError}
+          setShowErrorNotificationAlert={setShowErrorNotificationAlert}
+          loading={loading}
+          setLoading={setLoading}
         />
 
         <div className="flex justify-between pt-16 w-full">
@@ -77,49 +78,35 @@ export default function Main() {
         <Tasks
           tasks={tasks}
           setTasks={setTasks}
-          setShowUpdatedTaskNotificationAlert={
-            setShowUpdatedTaskNotificationAlert
-          }
-          setShowCompletedTaskNotificationAlert={
-            setShowCompletedTaskNotificationAlert
-          }
-          setShowDeletedTaskNotificationAlert={
-            setShowDeletedTaskNotificationAlert
-          }
-          setShowError={setShowError}
+          setShowSuccessNotificationAlert={setShowSuccessNotificationAlert}
+          setShowErrorNotificationAlert={setShowErrorNotificationAlert}
         />
       </div>
 
       <GlobalNotification
-        show={showCreatedTaskNotificationAlert}
-        message="The task has been created successfully"
-        description="Let's go! Focus on your goals."
-        onClose={setShowCreatedTaskNotificationAlert}
+        show={showSuccessNotificationAlert.showAlert}
+        message={showSuccessNotificationAlert.message}
+        description={showSuccessNotificationAlert.description}
+        onClose={(close) =>
+          setShowSuccessNotificationAlert({
+            message: "",
+            showAlert: close,
+            description: "",
+          })
+        }
       />
       <GlobalNotification
-        show={showUpdatedTaskNotificationAlert}
-        message="The task has been updated successfully"
-        description="Now your task has a new name."
-        onClose={setShowUpdatedTaskNotificationAlert}
-      />
-      <GlobalNotification
-        show={showCompletedTaskNotificationAlert}
-        message="The task has been completed successfully"
-        description="Congratulations on completing this task."
-        onClose={setShowCompletedTaskNotificationAlert}
-      />
-      <GlobalNotification
-        show={showDeletedTaskNotificationAlert}
-        message="The task has been deleted successfully"
-        description="Remember, you are capable of anything!"
-        onClose={setShowDeletedTaskNotificationAlert}
-      />
-      <GlobalNotification
-        show={showError.error}
-        message={showError.message}
-        description="Please understand the message above and try again."
+        show={showErrorNotificationAlert.showAlert}
+        message={showErrorNotificationAlert.message}
+        description={showErrorNotificationAlert.description}
         type="error"
-        onClose={(close) => setShowError({ message: "", error: close })}
+        onClose={(close) =>
+          setShowErrorNotificationAlert({
+            message: "",
+            showAlert: close,
+            description: "",
+          })
+        }
       />
     </main>
   );

@@ -1,20 +1,26 @@
 import { useState } from "react";
 
-import { PlusCircleIcon } from "@heroicons/react/24/outline";
+import { ArrowPathIcon, PlusCircleIcon } from "@heroicons/react/24/outline";
 
-import { MessageErrorTypes, TaskTypes } from "../../../types/types";
+import { MessageAlertTypes, TaskTypes } from "../../../types/types";
 import { validateTaskName } from "../../../utils/utils";
 
 interface TaskInputProps {
   createTask: (newTaskName: string) => void;
   tasks: TaskTypes[];
-  setShowError: (showError: MessageErrorTypes) => void;
+  setShowErrorNotificationAlert: (
+    showErrorNotificationAlert: MessageAlertTypes
+  ) => void;
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
 }
 
 export default function TaskInput({
   createTask,
   tasks,
-  setShowError,
+  setShowErrorNotificationAlert,
+  loading,
+  setLoading,
 }: TaskInputProps) {
   const [newTaskInput, setNewTaskInput] = useState<string>("");
 
@@ -37,19 +43,30 @@ export default function TaskInput({
           );
 
           if (isThereAlreadyATaskWithTheSameName) {
-            return setShowError({
+            return setShowErrorNotificationAlert({
               message: "A task with the same name already exists!",
-              error: true,
+              description: "Please understand the message above and try again.",
+              showAlert: true,
             });
           }
 
           createTask(newTaskInput);
+          setLoading(true);
           setNewTaskInput("");
         }}
-        disabled={newTaskInput.length < 3}
+        disabled={newTaskInput.length < 3 || loading}
       >
-        <span className="font-bold text-sm">Create</span>
-        <PlusCircleIcon width={16} strokeWidth={2.5} />
+        {loading ? (
+          <>
+            <ArrowPathIcon className="animate-spin" width={16} />
+            <span className="font-bold text-sm">Creating...</span>
+          </>
+        ) : (
+          <>
+            <span className="font-bold text-sm">Create</span>
+            <PlusCircleIcon width={16} strokeWidth={2.5} />
+          </>
+        )}
       </button>
     </div>
   );

@@ -7,7 +7,7 @@ import {
   TrashIcon,
 } from "@heroicons/react/24/outline";
 
-import { MessageErrorTypes, TaskTypes } from "../../../../types/types";
+import { MessageAlertTypes, TaskTypes } from "../../../../types/types";
 import { validateTaskName } from "../../../../utils/utils";
 
 interface TaskCardProps {
@@ -16,10 +16,12 @@ interface TaskCardProps {
   isChecked: boolean;
   tasks: TaskTypes[];
   setTasks: (tasks: TaskTypes[]) => void;
-  setShowUpdatedTaskNotificationAlert: (show: boolean) => void;
-  setShowCompletedTaskNotificationAlert: (show: boolean) => void;
-  setShowDeletedTaskNotificationAlert: (show: boolean) => void;
-  setShowError: (showError: MessageErrorTypes) => void;
+  setShowSuccessNotificationAlert: (
+    showSuccessNotificationAlert: MessageAlertTypes
+  ) => void;
+  setShowErrorNotificationAlert: (
+    showErrorNotificationAlert: MessageAlertTypes
+  ) => void;
 }
 
 export default function TaskCard({
@@ -28,10 +30,8 @@ export default function TaskCard({
   isChecked,
   tasks,
   setTasks,
-  setShowUpdatedTaskNotificationAlert,
-  setShowCompletedTaskNotificationAlert,
-  setShowDeletedTaskNotificationAlert,
-  setShowError,
+  setShowSuccessNotificationAlert,
+  setShowErrorNotificationAlert,
 }: TaskCardProps) {
   const [editingTask, setEditingTask] = useState(false);
   const [newTaskName, setNewTaskName] = useState(taskName);
@@ -46,20 +46,29 @@ export default function TaskCard({
       );
 
       if (isThereAlreadyATaskWithTheSameName) {
-        return setShowError({
+        return setShowErrorNotificationAlert({
           message: "A task with the same name already exists!",
-          error: true,
+          description: "Please understand the message above and try again.",
+          showAlert: true,
         });
       }
 
       currentTasks[index].taskName = newName;
       setEditingTask(false);
-      setShowUpdatedTaskNotificationAlert(true);
+      setShowSuccessNotificationAlert({
+        message: "The task has been updated successfully",
+        description: "Now your task has a new name.",
+        showAlert: true,
+      });
     } else {
       currentTasks[index].completed = !currentTasks[index].completed;
 
       currentTasks[index].completed &&
-        setShowCompletedTaskNotificationAlert(true);
+        setShowSuccessNotificationAlert({
+          message: "The task has been completed successfully",
+          description: "Congratulations on completing this task.",
+          showAlert: true,
+        });
     }
 
     setTasks(currentTasks);
@@ -76,7 +85,11 @@ export default function TaskCard({
       "tasks",
       JSON.stringify([...tasksWithoutTheTaskDeleted])
     );
-    setShowDeletedTaskNotificationAlert(true);
+    setShowSuccessNotificationAlert({
+      message: "The task has been deleted successfully",
+      description: "Remember, you are capable of anything!",
+      showAlert: true,
+    });
   };
 
   return (
@@ -86,7 +99,7 @@ export default function TaskCard({
       } w-full flex justify-between p-4 bg-gray-500 hover:bg-gray-500/80 transition-all rounded-lg border border-solid border-gray-400`}
     >
       <input
-        className="appearance-none outline-none cursor-pointer w-[1.125rem] h-[1.125rem] self-start mt-1.5 rounded-full relative border border-solid border-blue hover:border-blue-dark hover:bg-blue-dark/20 checked::before:text-gray-100 checked:bg-purple-dark checked:border-purple-dark checked:hover:bg-purple checked:hover:border-purple checked:before:content-['\2713'] checked:before:text-[0.85rem] checked:before:text-gray-100 checked:before:absolute checked:before:right-[1px] checked:before:top-[-2px] transition-all"
+        className="appearance-none outline-none cursor-pointer w-[1.125rem] h-[1.125rem] self-start mt-1.5 rounded-full relative border border-solid border-blue hover:border-blue-dark hover:bg-blue-dark/20 checked:bg-purple-dark checked:border-purple-dark checked:hover:bg-purple checked:hover:border-purple checked:before:content-['\2713'] checked:before:text-[0.85rem] checked:before:text-gray-100 checked:before:absolute checked:before:right-[2px] checked:before:top-[-2px] transition-all"
         type="checkbox"
         checked={isChecked}
         onChange={() => updateTask(index)}

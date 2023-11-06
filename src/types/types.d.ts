@@ -3,7 +3,8 @@ export interface TaskTypes {
   completed: boolean;
 }
 
-export interface MessageErrorTypes {
+export interface MessageAlertTypes {
   message: string;
-  error: boolean;
+  description: string;
+  showAlert: boolean;
 }

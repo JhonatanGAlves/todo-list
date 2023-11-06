@@ -1,24 +1,24 @@
 import { ClipboardDocumentListIcon } from "@heroicons/react/24/outline";
 
 import TaskCard from "./task-card/TaskCard";
-import { MessageErrorTypes, TaskTypes } from "../../../types/types";
+import { MessageAlertTypes, TaskTypes } from "../../../types/types";
 
 interface TasksProps {
   tasks: TaskTypes[];
   setTasks: (task: TaskTypes[]) => void;
-  setShowUpdatedTaskNotificationAlert: (show: boolean) => void;
-  setShowCompletedTaskNotificationAlert: (show: boolean) => void;
-  setShowDeletedTaskNotificationAlert: (show: boolean) => void;
-  setShowError: (showError: MessageErrorTypes) => void;
+  setShowSuccessNotificationAlert: (
+    showSuccessNotificationAlert: MessageAlertTypes
+  ) => void;
+  setShowErrorNotificationAlert: (
+    showErrorNotificationAlert: MessageAlertTypes
+  ) => void;
 }
 
 export default function Tasks({
   tasks,
   setTasks,
-  setShowUpdatedTaskNotificationAlert,
-  setShowCompletedTaskNotificationAlert,
-  setShowDeletedTaskNotificationAlert,
-  setShowError,
+  setShowSuccessNotificationAlert,
+  setShowErrorNotificationAlert,
 }: TasksProps) {
   return tasks.length > 0 ? (
     <div className="w-full mt-6 flex flex-col gap-3">
@@ -30,16 +30,8 @@ export default function Tasks({
           isChecked={task.completed}
           tasks={tasks}
           setTasks={setTasks}
-          setShowUpdatedTaskNotificationAlert={
-            setShowUpdatedTaskNotificationAlert
-          }
-          setShowCompletedTaskNotificationAlert={
-            setShowCompletedTaskNotificationAlert
-          }
-          setShowDeletedTaskNotificationAlert={
-            setShowDeletedTaskNotificationAlert
-          }
-          setShowError={setShowError}
+          setShowSuccessNotificationAlert={setShowSuccessNotificationAlert}
+          setShowErrorNotificationAlert={setShowErrorNotificationAlert}
         />
       ))}
     </div>
