@@ -99,7 +99,9 @@ export default function TaskCard({
       } w-full flex justify-between p-4 bg-gray-500 hover:bg-gray-500/80 transition-all rounded-lg border border-solid border-gray-400`}
     >
       <input
-        className="appearance-none outline-none cursor-pointer w-[2rem] h-[1.125rem] min-[420px]:w-[1.125rem] self-start mt-1.5 rounded-full relative border border-solid border-blue hover:border-blue-dark hover:bg-blue-dark/20 checked:bg-purple-dark checked:border-purple-dark checked:hover:bg-purple checked:hover:border-purple checked:before:content-['\2713'] checked:before:text-[0.85rem] checked:before:text-gray-100 checked:before:absolute checked:before:right-[2px] checked:before:top-[-2px] transition-all"
+        className={`appearance-none outline-none cursor-pointer ${
+          editingTask ? "w-[28.45px] min-[420px]:w-[1.125rem]" : ""
+        } h-[1.125rem] w-[1.125rem] self-start mt-1.5 rounded-full relative border border-solid border-blue hover:border-blue-dark hover:bg-blue-dark/20 checked:bg-purple-dark checked:border-purple-dark checked:hover:bg-purple checked:hover:border-purple checked:before:content-['\\2713'] checked:before:text-[0.85rem] checked:before:text-gray-100 checked:before:absolute checked:before:right-[2px] checked:before:top-[-2px] transition-all`}
         type="checkbox"
         checked={isChecked}
         onChange={() => updateTask(index)}

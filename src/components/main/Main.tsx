@@ -32,6 +32,8 @@ export default function Main() {
       createdAt: new Date(),
     };
 
+    const randomTimeout = Math.floor(Math.random() * 1000) + 1000; // from 1000 to 2000
+
     setTimeout(() => {
       setTasks([...tasks, newTask]);
       localStorage.setItem("tasks", JSON.stringify([...tasks, newTask]));
@@ -41,7 +43,7 @@ export default function Main() {
         showAlert: true,
       });
       setLoading(false);
-    }, 1000);
+    }, randomTimeout);
   };
 
   return (
