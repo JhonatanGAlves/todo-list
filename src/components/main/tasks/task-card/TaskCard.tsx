@@ -101,7 +101,7 @@ export default function TaskCard({
       <input
         className={`appearance-none outline-none cursor-pointer ${
           editingTask ? "w-[28.45px] min-[420px]:w-[1.125rem]" : ""
-        } h-[1.125rem] w-[1.125rem] self-start mt-1.5 rounded-full relative border border-solid border-blue hover:border-blue-dark hover:bg-blue-dark/20 checked:bg-purple-dark checked:border-purple-dark checked:hover:bg-purple checked:hover:border-purple checked:before:content-['\\2713'] checked:before:text-[0.85rem] checked:before:text-gray-100 checked:before:absolute checked:before:right-[2px] checked:before:top-[-2px] transition-all`}
+        } h-[1.125rem] w-[1.125rem] self-start mt-1.5 rounded-full relative border border-solid border-blue hover:border-blue-dark hover:bg-blue-dark/20 checked:bg-purple-dark checked:border-purple-dark checked:hover:bg-purple checked:hover:border-purple checked:before:content-['✓'] checked:before:text-[0.85rem] checked:before:text-gray-100 checked:before:absolute checked:before:right-[2px] checked:before:top-[-2px] transition-all`}
         type="checkbox"
         checked={isChecked}
         onChange={() => updateTask(index)}

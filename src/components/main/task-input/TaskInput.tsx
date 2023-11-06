@@ -31,7 +31,7 @@ export default function TaskInput({
         type="search"
         value={newTaskInput}
         onChange={(e) => setNewTaskInput(e.target.value)}
-        name="search-box"
+        name="text-box"
         placeholder="Add a new task"
       />
       <button
