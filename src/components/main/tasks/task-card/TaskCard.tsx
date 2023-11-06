@@ -99,14 +99,14 @@ export default function TaskCard({
       } w-full flex justify-between p-4 bg-gray-500 hover:bg-gray-500/80 transition-all rounded-lg border border-solid border-gray-400`}
     >
       <input
-        className="appearance-none outline-none cursor-pointer w-[1.125rem] h-[1.125rem] self-start mt-1.5 rounded-full relative border border-solid border-blue hover:border-blue-dark hover:bg-blue-dark/20 checked:bg-purple-dark checked:border-purple-dark checked:hover:bg-purple checked:hover:border-purple checked:before:content-['\2713'] checked:before:text-[0.85rem] checked:before:text-gray-100 checked:before:absolute checked:before:right-[2px] checked:before:top-[-2px] transition-all"
+        className="appearance-none outline-none cursor-pointer w-[2rem] h-[1.125rem] min-[420px]:w-[1.125rem] self-start mt-1.5 rounded-full relative border border-solid border-blue hover:border-blue-dark hover:bg-blue-dark/20 checked:bg-purple-dark checked:border-purple-dark checked:hover:bg-purple checked:hover:border-purple checked:before:content-['\2713'] checked:before:text-[0.85rem] checked:before:text-gray-100 checked:before:absolute checked:before:right-[2px] checked:before:top-[-2px] transition-all"
         type="checkbox"
         checked={isChecked}
         onChange={() => updateTask(index)}
       />
       {editingTask ? (
         <input
-          className="mx-3 px-2 flex-1 outline-none rounded-sm text-gray-200 bg-gray-400/30 border border-solid border-gray-400"
+          className="mx-3 px-2 w-full min-[420px]:flex-1 outline-none rounded-sm text-gray-200 bg-gray-400/30 border border-solid border-gray-400"
           type="text"
           value={newTaskName}
           onChange={(e) => setNewTaskName(e.target.value)}
