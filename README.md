@@ -1,27 +1,71 @@
-# React + TypeScript + Vite
+# Dtmoney Financial Control
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<h1 align="center">
+   <img src="./public/readme/todo-list.gif">
+</h1>
 
-Currently, two official plugins are available:
+<div align="center">
+   <a href="#desktop_computer-project">
+      <img src="https://img.shields.io/badge/PROJECT-8047F8?style=for-the-badge&logo=react&logoColor=white" />
+   </a>
+   <a href="#technologist-technologies">
+      <img src="https://img.shields.io/badge/TECHNOLOGIES-8047F8?style=for-the-badge&logo=codacy&logoColor=white" />
+   </a>
+   <a href="#clipboard-how-to-use">
+      <img src="https://img.shields.io/badge/HOW_TO_USE-8047F8?style=for-the-badge&logo=visual-studio-code&logoColor=white" />
+   </a>
+   <a href="#speech_balloon-contact">
+      <img src="https://img.shields.io/badge/CONTACT-8047F8?style=for-the-badge&logo=maildotru&logoColor=white" />
+   </a>
+</div>
+<br>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## :desktop_computer: Project
 
-## Expanding the ESLint configuration
+A simple front-end to-do list application for managing tasks efficiently. Built with modern web technologies to provide a clean and intuitive user experience.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## :technologist: Technologies Used
 
-- Configure the top-level `parserOptions` property like this:
+- React
+- TypeScript
+- Heroicons
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+## :clipboard: How to Use
+
+To get a local copy of the project up and running, follow these steps.
+
+### Installation
+
+1. **Clone the repository**:
+
+```bash
+   git clone https://github.com/JhonatanGAlves/todo-list.git
+   cd todo-list
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. **Install dependencies:**:
+
+```bash
+   yarn
+```
+
+4. **Start the application:**
+
+```bash
+   yarn dev
+```
+
+## :speech_balloon: Contact
+
+<br>
+<div align="center">
+   <a href="https://jhonatandev-alves-app.vercel.app/" target="_blank">
+      <img src="https://img.shields.io/badge/PORTFOLIO-8047F8?style=for-the-badge&logo=codeium&logoColor=white">
+   </a>
+   <a href="https://www.linkedin.com/in/jhonatan-alves-11b28015b/" target="_blank">
+      <img src="https://img.shields.io/badge/LINKEDIN-8047F8?style=for-the-badge&logo=linkedin&logoColor=white" />
+   </a>
+   <a href="mailto:jhonatan.galves1996@gmail.com">
+      <img src="https://img.shields.io/badge/EMAIL-8047F8?style=for-the-badge&logo=gmail&logoColor=white" />
+   </a>
+</div>
